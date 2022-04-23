@@ -5,6 +5,7 @@ package sudoku.GUI;
  *Purpose: This class and all other GUI classes in this program utilize swing and nested classes. The GuiPanel class contains nested panel classes, each nested panel class has its own logic written out in its own class. 
  *LeaderGUI uses the database class and displays its entries ordered by time and score  
  *TODO: Add database support
+ *TODO: Add functionality to leaderTable info
  */
 import java.awt.*;
 import javax.swing.*;
