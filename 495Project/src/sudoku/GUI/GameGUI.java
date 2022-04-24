@@ -88,9 +88,9 @@ public class GameGUI extends JFrame {
 					//hides current window and displays MenuGUI's window 
 					
 					int result = JOptionPane.showConfirmDialog(null, "Current puzzle progress will not be saved if you leave. Are you sure you want to exit?", "Are you sure?" ,JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if (result == JOptionPane.YES_OPTION) {
-						MenuGUI.mGUI.display(true);
-						MenuGUI.gGUI.display(false);
+					if (result == JOptionPane.YES_OPTION) {						
+						MenuGUI.getMenuGUI().display(true);
+						MenuGUI.getGameGUI().display(false);
 						//TODO: REPLACE
 						gp.ggb.fillBoard();
 					}
@@ -104,8 +104,8 @@ public class GameGUI extends JFrame {
 					//hides current window and displays leaderGUI window 
 					int result = JOptionPane.showConfirmDialog(null, "Current puzzle progress will not be saved if you leave. Are you sure you want to exit?", "Are you sure?" ,JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if (result == JOptionPane.YES_OPTION) {
-						MenuGUI.lGUI.display(true);
-						MenuGUI.gGUI.display(false);
+						MenuGUI.getLeaderGUI().display(true);
+						MenuGUI.getGameGUI().display(false);
 						//TODO: REPLACE
 						gp.ggb.fillBoard();
 					}

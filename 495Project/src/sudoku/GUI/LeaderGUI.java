@@ -117,8 +117,8 @@ public class LeaderGUI extends JFrame {
 			backButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent a) {
 					//hide current window and show menugui window
-					MenuGUI.mGUI.display(true);
-					MenuGUI.lGUI.display(false);
+					MenuGUI.getMenuGUI().display(true);
+					MenuGUI.getLeaderGUI().display(false);
 				}
 			});
 			

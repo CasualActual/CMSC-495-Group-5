@@ -15,11 +15,23 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MenuGUI extends JFrame {
-	//MenuGUI fields 
+	//MenuGUI fields
+	
 	//These allow for other classes to manipulate windows 
-	public static MenuGUI mGUI = new MenuGUI();
-	public static GameGUI gGUI = new GameGUI();
-	public static LeaderGUI lGUI = new LeaderGUI();
+	private static MenuGUI mGUI = new MenuGUI();
+	private static GameGUI gGUI = new GameGUI();
+	private static LeaderGUI lGUI = new LeaderGUI();
+	
+	//DEBUG - DELETE
+	public static  MenuGUI getMenuGUI() {
+		return mGUI;
+	}
+	public static GameGUI getGameGUI() {
+		return gGUI;
+	}
+	public static LeaderGUI getLeaderGUI() {
+		return lGUI;
+	}
 	
 	
 	// inner classes 
