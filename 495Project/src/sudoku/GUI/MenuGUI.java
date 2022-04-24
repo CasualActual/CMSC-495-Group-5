@@ -5,7 +5,6 @@ package sudoku.GUI;
  *Purpose: This class and all other GUI classes in this program utilize swing and nested classes. The GuiPanel class contains nested panel classes, each nested panel class has its own logic written out in its own class. 
  *MenuGUI serves as the main class.
  *When users make a choice of new game or leaderboard, the MenuGUI window is hidden and a new Frame is opened. 
- *TODO: Add functionality to leaderTable info
  *				
  */
 import java.awt.*;
@@ -25,8 +24,8 @@ public class MenuGUI extends JFrame {
 	//PANEL
 	static class GuiPanel extends JPanel {
 		//fields 
-		GuiButtons gbu = new GuiButtons(this);
-		GuiBanner gba = new GuiBanner(this);
+		private GuiButtons gbu = new GuiButtons(this);
+		private GuiBanner gba = new GuiBanner(this);
 		
 		public GuiPanel() {
 			adjustLayout();

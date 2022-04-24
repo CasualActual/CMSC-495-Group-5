@@ -6,7 +6,6 @@ package sudoku.GUI;
  *Purpose: This class and all other GUI classes in this program utilize swing and nested classes. The GuiPanel class contains nested panel classes, each nested panel class has its own logic written out in its own class. 
  * GameGUI contains the logic needed to run the sudoku puzzle for the end user. 
  * TODO: Add functionality to time and score JLabel
- * TODO: Add JOptionPane when clicking backButton and leaderButton
  *			
  */
 import java.awt.*;
@@ -58,7 +57,6 @@ public class GameGUI extends JFrame {
 			cons.gridy = 1;
 			cons.anchor = GridBagConstraints.SOUTHWEST;
 			add(ggi, cons);
-			
 		}
 		
 		public GuiGameButtons getGuiGameButtons() {
@@ -84,11 +82,13 @@ public class GameGUI extends JFrame {
 				public void actionPerformed(ActionEvent a) {
 					//hides current window and displays MenuGUI's window 
 					
-					MenuGUI.mGUI.display(true);
-					MenuGUI.gGUI.display(false);
-					//TODO: REPLACE
-					gp.ggb.fillBoard();
-					
+					int result = JOptionPane.showConfirmDialog(null, "Current puzzle progress will not be saved if you leave. Are you sure you want to exit?", "Are you sure?" ,JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (result == JOptionPane.YES_OPTION) {
+						MenuGUI.mGUI.display(true);
+						MenuGUI.gGUI.display(false);
+						//TODO: REPLACE
+						gp.ggb.fillBoard();
+					}
 					
 				}
 			});
@@ -97,12 +97,14 @@ public class GameGUI extends JFrame {
 			leaderButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent a) {
 					//hides current window and displays leaderGUI window 
-					MenuGUI.lGUI.display(true);
-					MenuGUI.gGUI.display(false);
+					int result = JOptionPane.showConfirmDialog(null, "Current puzzle progress will not be saved if you leave. Are you sure you want to exit?", "Are you sure?" ,JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (result == JOptionPane.YES_OPTION) {
+						MenuGUI.lGUI.display(true);
+						MenuGUI.gGUI.display(false);
+						//TODO: REPLACE
+						gp.ggb.fillBoard();
+					}
 
-					
-					//TODO: REPLACE 
-					gp.ggb.fillBoard();
 					
 				}
 			});
@@ -146,6 +148,7 @@ public class GameGUI extends JFrame {
 			this.gp = gp;
 			
 			createButtons();
+			//TODO: REPLACE
 			fillBoard();
 			adjustLayout();
 		}
@@ -188,7 +191,7 @@ public class GameGUI extends JFrame {
 			//full board 
 			class fullBoard extends JPanel {
 				public fullBoard() {
-					super(new GridLayout(3,3, 10, 10));
+					super(new GridLayout(3,3, 15, 15));
 					for (int i = 0; i < 9; i++) {
 						add(new region());
 					}
@@ -205,7 +208,6 @@ public class GameGUI extends JFrame {
 				buttons.add(new JButton(" "));
 				addUseButton(buttons.get(i));
 			}
-			
 		}
 		
 		//creates board 
