@@ -6,7 +6,12 @@ package sudoku.GUI;
  *Purpose: This class and all other GUI classes in this program utilize swing and nested classes. The GuiPanel class contains nested panel classes, each nested panel class has its own logic written out in its own class. 
  * GameGUI contains the logic needed to run the sudoku puzzle for the end user. 
  * TODO: Add functionality to time and score JLabel
- *			
+ *	CHANGE LOG:
+ *		Abel Tabor: 
+ *			4/20/2022			
+ *				-> Created file and wrote all code 
+ *			4/22/2022 
+ *				-> Added JOptionPane's to backButton and and leaderButton
  */
 import java.awt.*;
 import javax.swing.*;

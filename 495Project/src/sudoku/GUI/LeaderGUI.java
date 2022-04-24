@@ -6,6 +6,12 @@ package sudoku.GUI;
  *LeaderGUI uses the database class and displays its entries ordered by time and score  
  *TODO: Add database support
  *TODO: Add functionality to leaderTable info
+ * *	CHANGE LOG:
+ *		Abel Tabor: 
+ *			4/20/2022			
+ *				-> Created file and wrote all code 
+ *			4/22/2022 
+ *				-> Added JTable support and created leaderBanner.png for Frame
  */
 import java.awt.*;
 import javax.swing.*;
