@@ -9,6 +9,8 @@ package sudoku.GUI;
  *		Abel Tabor: 
  *			4/20/2022			
  *				-> Created file and wrote all code, created banner.png for GUI 
+ *			4/23/2022
+ *				-> made frame objects private and added getters 
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -22,7 +24,7 @@ public class MenuGUI extends JFrame {
 	private static GameGUI gGUI = new GameGUI();
 	private static LeaderGUI lGUI = new LeaderGUI();
 	
-	//DEBUG - DELETE
+	//GETTERS
 	public static  MenuGUI getMenuGUI() {
 		return mGUI;
 	}
