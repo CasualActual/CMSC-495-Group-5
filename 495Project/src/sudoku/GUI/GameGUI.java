@@ -12,6 +12,9 @@ package sudoku.GUI;
  *				-> Created file and wrote all code 
  *			4/22/2022 
  *				-> Added JOptionPane's to backButton and and leaderButton
+ *			4/25/2022
+ *				-> Added support for SudokuGenerator
+ *				-> Started logic for submit button 
  */
 import java.awt.*;
 import javax.swing.*;
@@ -20,7 +23,9 @@ import sudoku.Logic.SudokuGenerator;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 public class GameGUI extends JFrame {
+	private static int[] submitCheck;
 	//inner classes 
 	
 	//Panel 
@@ -91,8 +96,8 @@ public class GameGUI extends JFrame {
 					if (result == JOptionPane.YES_OPTION) {						
 						MenuGUI.getMenuGUI().display(true);
 						MenuGUI.getGameGUI().display(false);
-						//TODO: REPLACE
-						gp.ggb.fillBoard();
+
+						submitCheck = gp.ggb.fillBoard();
 					}
 					
 				}
@@ -106,8 +111,8 @@ public class GameGUI extends JFrame {
 					if (result == JOptionPane.YES_OPTION) {
 						MenuGUI.getLeaderGUI().display(true);
 						MenuGUI.getGameGUI().display(false);
-						//TODO: REPLACE
-						gp.ggb.fillBoard();
+
+						submitCheck = gp.ggb.fillBoard();
 					}
 
 					
@@ -153,8 +158,8 @@ public class GameGUI extends JFrame {
 			this.gp = gp;
 			
 			createButtons();
-			//TODO: REPLACE
-			fillBoard();
+
+			submitCheck = fillBoard();
 			adjustLayout();
 		}
 		
@@ -216,10 +221,10 @@ public class GameGUI extends JFrame {
 		}
 		
 		//creates board 
-		//TODO: THIS IS A STAND IN METHOD TO BE REPLACED LATER
-		private void fillBoard() {
-			SudokuGenerator sud = new SudokuGenerator();
+		private int[] fillBoard() {
+			SudokuGenerator sud = new SudokuGenerator(5);
 			int [][] board = sud.getBoard();
+			int [] fullBoard = sud.getFullBoard();
 			int count = 0; 
 			for (int x = 0; x < 9; x++) {
 				for (int y = 0; y < 9; y++) {
@@ -238,7 +243,7 @@ public class GameGUI extends JFrame {
 					count++;
 				}
 			}
-			
+			return fullBoard;
 		}
 		
 		private void addUseButton(JButton button) {
@@ -303,17 +308,37 @@ public class GameGUI extends JFrame {
 				public void actionPerformed(ActionEvent a) {
 					//TODO: Submit logic
 					int length = gp.ggb.buttons.size();
-					int[] userSubmittion = new int[length];
+					int[] userSubmission = new int[length];
 					for (int i = 0; i < length; i++) {
 						try {
-							userSubmittion[i] = Integer.parseInt(gp.ggb.buttons.get(i).getText());
+							userSubmission[i] = Integer.parseInt(gp.ggb.buttons.get(i).getText());
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(null, "Please enter values for every cell");
 							return;
 						}
 					}
+					//TODO: Remove Debug
+					/*
 					for (int i = 0; i < length; i++) {
-						System.out.print(userSubmittion[i]);
+						System.out.print(userSubmission[i]);
+					}
+					System.out.println("Real entry:");
+					for (int i = 0; i < length; i++) {
+						System.out.print(submitCheck[i]);
+					}
+					*/
+				
+					//TODO: remove debug
+					//Arrays.equals(userSubmission, submitCheck)
+					if (Arrays.equals(userSubmission, submitCheck)) {
+						JOptionPane.showMessageDialog(null, "Correct");
+						//TODO: add GameLogic here
+						String name =JOptionPane.showInputDialog("What is your name?");
+						System.out.println(name);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Incorrect");
+						
 					}
 				}
 			});
