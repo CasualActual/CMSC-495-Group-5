@@ -222,7 +222,7 @@ public class GameGUI extends JFrame {
 		
 		//creates board 
 		private int[] fillBoard() {
-			SudokuGenerator sud = new SudokuGenerator(10);
+			SudokuGenerator sud = new SudokuGenerator(5);
 			int [][] board = sud.getBoard();
 			int [] fullBoard = sud.getFullBoard();
 			int count = 0; 
