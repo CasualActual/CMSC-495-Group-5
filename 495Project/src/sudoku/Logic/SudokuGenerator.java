@@ -194,7 +194,6 @@ public class SudokuGenerator {
             if (j != 0)
                 j = j - 1;
 
-            // System.out.println(k+" "+j);
             if (mat[k][j] != 0) {
                 count--;
                 mat[k][j] = 0;
@@ -207,15 +206,6 @@ public class SudokuGenerator {
     
     //mat
     public int[][] getBoard() {
-    	//TODO: Remove Debug
-    	/*
-        for (int k = 0; k < COLUMN; k++) {
-            for (int j = 0; j < COLUMN; j++)
-                System.out.print(mat[k][j] + " ");
-            System.out.println();
-        }
-        System.out.println();
-        */
 		return mat;
     }
     

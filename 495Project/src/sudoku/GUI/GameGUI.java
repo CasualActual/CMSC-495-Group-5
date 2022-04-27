@@ -5,7 +5,6 @@ package sudoku.GUI;
  *File name: GameGUI.java
  *Purpose: This class and all other GUI classes in this program utilize swing and nested classes. The GuiPanel class contains nested panel classes, each nested panel class has its own logic written out in its own class. 
  * GameGUI contains the logic needed to run the sudoku puzzle for the end user. 
- * TODO: Add functionality to time and score JLabel
  *	CHANGE LOG:
  *		Abel Tabor: 
  *			4/20/2022			
@@ -14,11 +13,15 @@ package sudoku.GUI;
  *				-> Added JOptionPane's to backButton and and leaderButton
  *			4/25/2022
  *				-> Added support for SudokuGenerator
- *				-> Started logic for submit button 
- */
+ *				-> Started logic for submit button
+ *			4/27/2022
+ *				-> Added functionality for time and score JLabel
+ *				-> Added integration for GameLogic Class 
+ */		
 import java.awt.*;
 import javax.swing.*;
 
+import sudoku.Logic.GameLogic;
 import sudoku.Logic.SudokuGenerator;
 
 import java.awt.event.*;
@@ -69,9 +72,6 @@ public class GameGUI extends JFrame {
 			add(ggi, cons);
 		}
 		
-		public GuiGameButtons getGuiGameButtons() {
-			return this.ggb;
-		}
 	}
 	
 	static class GuiMenuButtons extends JPanel {
@@ -222,7 +222,7 @@ public class GameGUI extends JFrame {
 		
 		//creates board 
 		private int[] fillBoard() {
-			SudokuGenerator sud = new SudokuGenerator(5);
+			SudokuGenerator sud = new SudokuGenerator(10);
 			int [][] board = sud.getBoard();
 			int [] fullBoard = sud.getFullBoard();
 			int count = 0; 
@@ -294,19 +294,40 @@ public class GameGUI extends JFrame {
 		private JButton submit = new JButton("Submit");
 		private JLabel score = new JLabel("Score: ");
 		private JLabel time = new JLabel("Time: ");
+		//private GameLogic gl = MenuGUI.getGameLogic();
+		private Timer timer;
 		
 		//cons 
 		public GuiGameInfo(GuiPanel gp) {
 			this.gp = gp;
 			
 			adjustLayout();
+
+			
+			//timer 
+			 timer = new Timer(1000, new ActionListener() {
+				public void actionPerformed(ActionEvent a) {
+					GameLogic gl = MenuGUI.getGameLogic();
+					gl.incremTime();
+					String timeStr = "Time: " + gl.getStringTime();
+					time.setText(timeStr);
+					//score 
+					String scoreText = "Score: " + gl.getScore();
+					score.setText(scoreText);
+				}
+			});
+			timer.start();
+			
+			
+
+		
+			
 			
 			//action listeners 
 			
 			//submit 
 			submit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent a) {
-					//TODO: Submit logic
 					int length = gp.ggb.buttons.size();
 					int[] userSubmission = new int[length];
 					for (int i = 0; i < length; i++) {
@@ -317,27 +338,35 @@ public class GameGUI extends JFrame {
 							return;
 						}
 					}
-					//TODO: Remove Debug
-					/*
-					for (int i = 0; i < length; i++) {
-						System.out.print(userSubmission[i]);
-					}
-					System.out.println("Real entry:");
-					for (int i = 0; i < length; i++) {
-						System.out.print(submitCheck[i]);
-					}
-					*/
+
 				
 					//TODO: remove debug
 					//Arrays.equals(userSubmission, submitCheck)
 					if (Arrays.equals(userSubmission, submitCheck)) {
 						JOptionPane.showMessageDialog(null, "Correct");
-						//TODO: add GameLogic here
-						String name =JOptionPane.showInputDialog("What is your name?");
-						System.out.println(name);
-					}
-					else {
+						boolean validName = false;
+						while (!validName) {
+							String name = JOptionPane.showInputDialog("What is your name?");
+							validName = MenuGUI.getGameLogic().properName(name);
+							if (!validName) {
+								JOptionPane.showMessageDialog(null, "Invalid name! Names can only contain alphanumeric characters.", "Warning", JOptionPane.WARNING_MESSAGE);
+							}
+						}
+						//submit information
+						boolean gameSubmit = MenuGUI.getGameLogic().submitGame();
+						if (gameSubmit) {
+							JOptionPane.showMessageDialog(null, "Your game has been submitted to the leaderboards!");
+						} else {
+							JOptionPane.showMessageDialog(null, "There was an issue submitting your game to the leaderboards...");
+						}
+						//goes back to menu and starts a new board 
+						MenuGUI.getGameGUI().display(false);
+						MenuGUI.getMenuGUI().display(true);
+						submitCheck = gp.ggb.fillBoard();
+						
+					} else {
 						JOptionPane.showMessageDialog(null, "Incorrect");
+						MenuGUI.getGameLogic().failedSubmit();
 						
 					}
 				}
@@ -375,6 +404,14 @@ public class GameGUI extends JFrame {
 			add(time, cons);
 			
 			
+		}
+		
+		public void startTimer() {
+			timer.start();
+		}
+	
+		public void stopTimer() {
+			timer.stop();
 		}
 		
 		

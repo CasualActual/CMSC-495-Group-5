@@ -11,10 +11,14 @@ package sudoku.GUI;
  *				-> Created file and wrote all code, created banner.png for GUI 
  *			4/23/2022
  *				-> made frame objects private and added getters 
+ *			4/27/2022
+ *				-> Added integration of GameLogic class 
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import sudoku.Logic.GameLogic;
 
 public class MenuGUI extends JFrame {
 	//MenuGUI fields
@@ -23,6 +27,7 @@ public class MenuGUI extends JFrame {
 	private static MenuGUI mGUI = new MenuGUI();
 	private static GameGUI gGUI = new GameGUI();
 	private static LeaderGUI lGUI = new LeaderGUI();
+	private static GameLogic gl = new GameLogic();
 	
 	//GETTERS
 	public static  MenuGUI getMenuGUI() {
@@ -33,6 +38,9 @@ public class MenuGUI extends JFrame {
 	}
 	public static LeaderGUI getLeaderGUI() {
 		return lGUI;
+	}
+	public static GameLogic getGameLogic() {
+		return gl;
 	}
 	
 	
@@ -93,6 +101,8 @@ public class MenuGUI extends JFrame {
 					//creates new GameGUI and hides menuGUI
 					gGUI.display(true);
 					mGUI.display(false);
+					//indicates that a new game has started 
+					gl.newGame();
 					
 					
 				}
