@@ -28,6 +28,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 public class GameGUI extends JFrame {
+
+	private static final long serialVersionUID = 1L; //suppress warnings 
 	private static int[] submitCheck;
 	//inner classes 
 	
