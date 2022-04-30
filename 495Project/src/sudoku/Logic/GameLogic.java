@@ -12,7 +12,8 @@ package sudoku.Logic;
  *			4/27/2022			
  *				-> Created file
  *				-> Integrated sections of Thomas' GameTimer class to create timer functionality 
- *TODO: Add database support
+ *			4/30/2022 
+ *				-> Added database integration
  */		
 
 import java.util.regex.Pattern;
@@ -20,7 +21,7 @@ import java.util.regex.Matcher;
 
 public class GameLogic {
 	//final fields 
-	private final int MAXSCORE = 10000;
+	private final int MAXSCORE = 9999;
 	//fields 
 	private int gameTime, sec, min; //user number information 
 	private int score = MAXSCORE;
@@ -82,12 +83,14 @@ public class GameLogic {
 	
 	//game won submission 
 	public boolean submitGame() {
-		//TODO: add database support 
 		//checks if name is valid again 
 		boolean validName = properName(this.name);
 		if (validName) {
-			//TODO: submit database stuff here
-			return true;
+			Database db = new Database();
+			boolean entered = db.enterEntry(name, gameTime, score);
+			if (entered ) {
+				return true;
+			}
 		} 
 		return false;
 	}

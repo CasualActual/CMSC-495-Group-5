@@ -113,6 +113,7 @@ public class MenuGUI extends JFrame {
 					//hides current window and displays leaderGUI window 
 					MenuGUI.lGUI.display(true);
 					MenuGUI.mGUI.display(false);
+					MenuGUI.getLeaderGUI().updateInfo();
 				}
 			});
 			

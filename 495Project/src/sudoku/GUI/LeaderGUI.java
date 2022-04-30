@@ -12,15 +12,53 @@ package sudoku.GUI;
  *				-> Created file and wrote all code 
  *			4/22/2022 
  *				-> Added JTable support and created leaderBanner.png for Frame
+ *			4/27/2022 
+ *				-> Added database integration
  */
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
+import sudoku.Logic.Database;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 public class LeaderGUI extends JFrame {
 
+	//field 
+	private static String[] colNames = {"Name", "Time", "Score"};
+	private static JTable testTable = new JTable();
+
+	
+	//methods 
+	public static void updateInfo() {
+		//make connection with database 
+		DefaultTableModel model = new DefaultTableModel(colNames, 0);
+		Database db = new Database();
+		ArrayList<ArrayList<String>> entries = db.getEntries();
+		for (int i = 0; i < entries.size(); i++) {
+			String name = entries.get(i).get(0);
+			
+			//format time 
+			String unFomtime = entries.get(i).get(1);
+			int timeInt = Integer.parseInt(unFomtime);
+			int timeMin = timeInt/60000;
+			int timeSec = (timeInt/1000) % 60;
+			String timeSecString = String.valueOf(timeSec);
+			//allows for single digit values to have a 0 behind them
+			if (timeSecString.length() == 1) {
+				timeSecString = "0" + timeSecString;
+			}
+			
+			String time = String.valueOf(timeMin) + ":" + timeSecString;		
+			String score = entries.get(i).get(2);
+			model.addRow(new Object[] {name, time, score});
+		}
+		testTable.setModel(model);
+	}
+	
 	//inner classes 
+
 	
 	//Panel 
 	static class GuiPanel extends JPanel {
@@ -62,22 +100,20 @@ public class LeaderGUI extends JFrame {
 	static class GuiLeaderTable extends JPanel {
 		//fields 
 		private GuiPanel gp;
-		//TODO: Add real info 
-		private String[][] info = {
-				{"Abel", "3000", "1:56"},
-				{"Aaaa", "7800", "6:45"}
-		};
-		private String[] colNames = {"Name", "Score", "Time"};
-		private JTable leaderTable = new JTable(info, colNames);
-		private JScrollPane sp = new JScrollPane(leaderTable);
+		private JScrollPane so = new JScrollPane(testTable);
 		
 		
 		public GuiLeaderTable(GuiPanel gp) {
 			this.gp = gp;
+
+			testTable.setBounds(30, 40, 100, 200);
+			testTable.setEnabled(false);
+			updateInfo();
 			
-			leaderTable.setBounds(30, 40, 100, 200);
-			leaderTable.setEnabled(false);
+			
 			adjustLayout();
+			
+			
 		}
 		
 		private void adjustLayout() {
@@ -87,11 +123,12 @@ public class LeaderGUI extends JFrame {
 			//cons manager 
 			GridBagConstraints cons = new GridBagConstraints();
 			
-			//sp 
+			//so 
 			cons.gridx = 0;
 			cons.gridy = 0;
 			cons.anchor = GridBagConstraints.CENTER;
-			add(sp, cons);
+			add(so, cons);
+			
 			
 		}
 	}

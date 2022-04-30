@@ -17,6 +17,8 @@ package sudoku.GUI;
  *			4/27/2022
  *				-> Added functionality for time and score JLabel
  *				-> Added integration for GameLogic Class 
+ *			4/29/2022
+ *				-> Added Database integration
  */		
 import java.awt.*;
 import javax.swing.*;
@@ -99,13 +101,7 @@ public class GameGUI extends JFrame {
 						MenuGUI.getMenuGUI().display(true);
 						MenuGUI.getGameGUI().display(false);
 
-						submitCheck = gp.ggb.fillBoard();
-						
-						//TODO: Debug
-						//timer stop 
-						//gp.ggi.stopTimer();
-						
-						
+						submitCheck = gp.ggb.fillBoard();						
 					}
 					
 				}
@@ -118,12 +114,13 @@ public class GameGUI extends JFrame {
 					int result = JOptionPane.showConfirmDialog(null, "Current puzzle progress will not be saved if you leave. Are you sure you want to exit?", "Are you sure?" ,JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if (result == JOptionPane.YES_OPTION) {
 						MenuGUI.getLeaderGUI().display(true);
+						MenuGUI.getLeaderGUI().updateInfo();
 						MenuGUI.getGameGUI().display(false);
 
 						submitCheck = gp.ggb.fillBoard();
+						
+						
 					}
-
-					
 				}
 			});
 		}
@@ -302,8 +299,6 @@ public class GameGUI extends JFrame {
 		private JButton submit = new JButton("Submit");
 		private JLabel score = new JLabel("Score: ");
 		private JLabel time = new JLabel("Time: ");
-		//TODO: Debug
-		//private GameLogic gl = MenuGUI.getGameLogic();
 		private Timer timer;
 		
 		//cons 
@@ -347,10 +342,6 @@ public class GameGUI extends JFrame {
 							return;
 						}
 					}
-
-				
-					//TODO: remove debug
-					//Arrays.equals(userSubmission, submitCheck)
 					if (Arrays.equals(userSubmission, submitCheck)) {
 						JOptionPane.showMessageDialog(null, "Correct");
 						boolean validName = false;

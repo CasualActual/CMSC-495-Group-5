@@ -132,7 +132,6 @@ public class SudokuGenerator {
     // A recursive function to fill remaining
     // matrix
     private boolean fillRemaining(int k, int j) {
-        //  System.out.println(k+" "+j);
         if (j >= COLUMN && k < COLUMN - 1) {
             k = k + 1;
             j = 0;
