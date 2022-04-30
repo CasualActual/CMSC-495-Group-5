@@ -52,7 +52,7 @@ public class GameGUI extends JFrame {
 			
 			//cons manager 
 			GridBagConstraints cons = new GridBagConstraints();
-			
+			//
 			//GuiMenuButtons
 			cons.gridx = 1;
 			cons.gridy = 1;
