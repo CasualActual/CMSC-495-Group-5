@@ -100,6 +100,12 @@ public class GameGUI extends JFrame {
 						MenuGUI.getGameGUI().display(false);
 
 						submitCheck = gp.ggb.fillBoard();
+						
+						//TODO: Debug
+						//timer stop 
+						//gp.ggi.stopTimer();
+						
+						
 					}
 					
 				}
@@ -296,6 +302,7 @@ public class GameGUI extends JFrame {
 		private JButton submit = new JButton("Submit");
 		private JLabel score = new JLabel("Score: ");
 		private JLabel time = new JLabel("Time: ");
+		//TODO: Debug
 		//private GameLogic gl = MenuGUI.getGameLogic();
 		private Timer timer;
 		

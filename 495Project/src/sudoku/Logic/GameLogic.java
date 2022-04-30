@@ -60,6 +60,7 @@ public class GameLogic {
 		this.gameTime = 0;
 		this.sec = 0;
 		this.min = 0;
+		this.score = MAXSCORE;
 	}
 	
 	//increments time by 1 sec or 1000 msec
