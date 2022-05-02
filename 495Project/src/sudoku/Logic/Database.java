@@ -79,7 +79,7 @@ public class Database {
 				entry.add( String.valueOf(time));
 				entry.add( String.valueOf(score));
 				//adding value for collections 
-				int finalScore = score + (100000/time);
+				int finalScore = score + (100000/(time/100));
 				entry.add(String.valueOf(finalScore));
 				entries.add(entry);
 			}
